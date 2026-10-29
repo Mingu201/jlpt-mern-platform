@@ -214,8 +214,8 @@ export default function GrammarDojo() {
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
             Võ Đài Ngữ Pháp JLPT (N5 → N3)
           </h1>
-          <p className="text-emerald-100 text-sm mt-1 max-w-xl">
-            Làm chủ hơn 350 cấu trúc ngữ pháp trọng tâm, luyện biến đổi các thể động từ và rèn phản xạ qua thử thách đố vui trắc nghiệm.
+          <p className="text-emerald-100 text-sm mt-1 max-w-2xl">
+            Kho ngữ liệu mở đồ sộ gồm <strong>483 cấu trúc ngữ pháp</strong> (N5: 134, N4: 139, N3: 210) kèm ví dụ, công thức kết hợp, luyện 8 thể động từ và câu đố phản xạ.
           </p>
         </div>
 
@@ -260,29 +260,34 @@ export default function GrammarDojo() {
       {/* Level Selector */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div className="flex items-center gap-2 bg-white dark:bg-slate-900 p-1.5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
-          {['all', 'N5', 'N4', 'N3'].map((lvl) => (
+          {[
+            { id: 'all', label: 'Tất cả (483)' },
+            { id: 'N5', label: 'N5 (134)' },
+            { id: 'N4', label: 'N4 (139)' },
+            { id: 'N3', label: 'N3 (210)' }
+          ].map((lvl) => (
             <button
-              key={lvl}
-              onClick={() => setLevel(lvl)}
-              className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                level === lvl
+              key={lvl.id}
+              onClick={() => setLevel(lvl.id)}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                level === lvl.id
                   ? 'bg-emerald-600 text-white shadow'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              {lvl === 'all' ? 'Tất cả cấp độ' : lvl}
+              {lvl.label}
             </button>
           ))}
         </div>
 
         {activeTab === 'library' && (
-          <div className="relative w-full sm:w-72">
+          <div className="relative w-full sm:w-80">
             <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Tìm mẫu ngữ pháp, ý nghĩa..."
+              placeholder="Tìm kiếm trong 483 mẫu ngữ pháp..."
               className="w-full pl-10 pr-4 py-2 text-xs sm:text-sm rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
@@ -293,7 +298,11 @@ export default function GrammarDojo() {
       {activeTab === 'library' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* List cột trái */}
-          <div className="lg:col-span-5 space-y-3 max-h-[700px] overflow-y-auto pr-1">
+          <div className="lg:col-span-5 space-y-3 max-h-[720px] overflow-y-auto pr-1">
+            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-1 flex items-center justify-between">
+              <span>Danh Sách Cấu Trúc</span>
+              <span>{grammars.length} mẫu ngữ pháp</span>
+            </div>
             {loading ? (
               <div className="text-center py-12 text-slate-400 text-sm">Đang tải danh sách ngữ pháp...</div>
             ) : grammars.length === 0 ? (

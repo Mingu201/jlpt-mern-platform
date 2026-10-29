@@ -1,10 +1,11 @@
 import Grammar from '../models/Grammar.js';
 import { initialGrammarList, verbConjugationData } from '../data/grammarData.js';
+import { loadFullGrammarCorpus } from '../scripts/seedGrammarCorpus.js';
 
 // GET /api/v1/grammar
 export const getGrammarList = async (req, res) => {
   try {
-    const { level, search, page = 1, limit = 50 } = req.query;
+    const { level, search, page = 1, limit = 500 } = req.query;
     const query = {};
 
     if (level && ['N5', 'N4', 'N3'].includes(level.toUpperCase())) {
@@ -24,14 +25,18 @@ export const getGrammarList = async (req, res) => {
     const limitNum = parseInt(limit, 10);
     const skip = (pageNum - 1) * limitNum;
 
-    // Tự động seed nếu DB chưa có ngữ pháp nào
-    const totalCount = await Grammar.countDocuments(query);
-    if (totalCount === 0 && !search && !level) {
-      await Grammar.insertMany(initialGrammarList);
+    // Tự động seed nếu DB chưa có ngữ pháp nào hoặc còn ít (dưới 50)
+    const totalCount = await Grammar.countDocuments({});
+    if (totalCount < 50 && !search && !level) {
+      const fullList = loadFullGrammarCorpus();
+      if (fullList.length > 0) {
+        await Grammar.deleteMany({});
+        await Grammar.insertMany(fullList);
+      }
     }
 
     const grammarList = await Grammar.find(query)
-      .sort({ jlptLevel: -1, createdAt: -1 })
+      .sort({ jlptLevel: -1, pattern: 1 })
       .skip(skip)
       .limit(limitNum)
       .lean();
@@ -149,12 +154,18 @@ export const createGrammar = async (req, res) => {
 // POST /api/v1/grammar/seed
 export const seedGrammarData = async (req, res) => {
   try {
+    const fullList = loadFullGrammarCorpus();
     await Grammar.deleteMany({});
-    const inserted = await Grammar.insertMany(initialGrammarList);
+    const inserted = await Grammar.insertMany(fullList);
     res.json({
       success: true,
-      message: `Đã nạp thành công ${inserted.length} mẫu ngữ pháp khởi tạo!`,
-      data: inserted
+      message: `Đã nạp thành công toàn bộ ${inserted.length} mẫu ngữ pháp JLPT N5 → N3 từ kho ngữ liệu mở!`,
+      data: {
+        total: inserted.length,
+        N5: inserted.filter((g) => g.jlptLevel === 'N5').length,
+        N4: inserted.filter((g) => g.jlptLevel === 'N4').length,
+        N3: inserted.filter((g) => g.jlptLevel === 'N3').length
+      }
     });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });

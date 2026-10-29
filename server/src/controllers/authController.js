@@ -68,6 +68,7 @@ export const register = async (req, res, next) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        role: user.role,
         targetLevel: user.targetLevel,
         streak: user.streak
       }
@@ -138,6 +139,7 @@ export const login = async (req, res, next) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        role: user.role,
         targetLevel: user.targetLevel,
         streak: user.streak
       }

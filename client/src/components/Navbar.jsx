@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { BookOpen, Edit3, Mic, Grid, Sparkles, Sun, Moon, GraduationCap, Flame, User, LogOut } from 'lucide-react';
+import { BookOpen, Edit3, Mic, Grid, Sparkles, Sun, Moon, GraduationCap, Flame, User, LogOut, ShieldCheck } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
 
@@ -16,6 +16,15 @@ export default function Navbar({ onOpenAuthModal }) {
     { to: '/reading', label: 'Luyện Đọc', icon: Sparkles },
     { to: '/speaking', label: 'Luyện Nói', icon: Mic }
   ];
+
+  if (user?.role === 'admin') {
+    navItems.push({
+      to: '/admin',
+      label: 'Admin Panel 🛡️',
+      icon: ShieldCheck,
+      admin: true
+    });
+  }
 
   return (
     <header className="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
@@ -44,7 +53,11 @@ export default function Navbar({ onOpenAuthModal }) {
                 key={item.to}
                 to={item.to}
                 className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
-                  item.highlight
+                  item.admin
+                    ? isActive
+                      ? 'bg-purple-600 text-white shadow-sm'
+                      : 'bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 hover:bg-purple-100 border border-purple-200 dark:border-purple-800'
+                    : item.highlight
                     ? isActive
                       ? 'bg-amber-500 text-white shadow-sm'
                       : 'bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 hover:bg-amber-100 border border-amber-200 dark:border-amber-800/60'

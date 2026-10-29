@@ -2,10 +2,12 @@ import app from './app.js';
 import { connectDB } from './config/db.js';
 import { ENV } from './config/env.js';
 import { autoSeedIfEmpty } from './scripts/autoSeed.js';
+import { ensureAdminAccount } from './scripts/createAdmin.js';
 
 const startServer = async () => {
   await connectDB();
   await autoSeedIfEmpty();
+  await ensureAdminAccount();
 
   const server = app.listen(ENV.PORT, () => {
     console.log(`\n=================================================`);

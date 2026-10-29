@@ -8,6 +8,7 @@ import KanjiDojo from './pages/KanjiDojo';
 import ReadingReader from './features/reading/ReadingReader';
 import SpeakingStudio from './features/speaking/SpeakingStudio';
 import ClassroomSession from './features/classroom/ClassroomSession';
+import AdminDashboard from './pages/AdminDashboard';
 
 export default function App() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -20,6 +21,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Dashboard onOpenAuthModal={() => setAuthModalOpen(true)} />} />
             <Route path="/classroom" element={<ClassroomSession onOpenAuthModal={() => setAuthModalOpen(true)} />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/kana" element={<KanaChart />} />
             <Route path="/kanji" element={<KanjiDojo />} />
             <Route path="/reading" element={<ReadingReader />} />

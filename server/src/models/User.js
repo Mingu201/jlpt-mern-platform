@@ -17,6 +17,11 @@ const userSchema = new mongoose.Schema({
     enum: ['N5', 'N4', 'N3'], 
     default: 'N5' 
   },
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user'
+  },
   dailyGoalMinutes: { type: Number, default: 30 },
   streak: { type: Number, default: 0 },
   lastActiveDate: { type: Date }

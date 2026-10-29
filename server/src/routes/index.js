@@ -4,6 +4,7 @@ import kanjiRoutes from './kanjiRoutes.js';
 import dictionaryRoutes from './dictionaryRoutes.js';
 import authRoutes from './authRoutes.js';
 import srsRoutes from './srsRoutes.js';
+import adminRoutes from './adminRoutes.js';
 
 const router = express.Router();
 
@@ -33,6 +34,7 @@ router.get('/seed', async (req, res) => {
 
 router.use('/auth', authRoutes);
 router.use('/srs', srsRoutes);
+router.use('/admin', adminRoutes);
 router.use('/vocab', vocabRoutes);
 router.use('/kanji', kanjiRoutes);
 router.use('/dictionary', dictionaryRoutes);

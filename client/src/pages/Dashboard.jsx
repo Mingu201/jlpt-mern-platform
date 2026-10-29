@@ -5,23 +5,32 @@ import { Search, Volume2, RotateCw, BookOpen, Layers, CheckCircle2 } from 'lucid
 export default function Dashboard() {
   const [level, setLevel] = useState('N5');
   const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
+  const [meta, setMeta] = useState({ total: 0, totalPages: 1, limit: 30 });
   const [vocabList, setVocabList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('flashcards'); // 'flashcards' | 'list'
   const [flippedIndex, setFlippedIndex] = useState(null);
 
   useEffect(() => {
+    setPage(1);
+  }, [level, search]);
+
+  useEffect(() => {
     const timer = setTimeout(() => {
       fetchVocab();
     }, 300); // 300ms Debounce theo chuẩn SWE
     return () => clearTimeout(timer);
-  }, [level, search]);
+  }, [level, search, page]);
 
   const fetchVocab = async () => {
     setLoading(true);
     try {
-      const res = await axiosClient.get(`/vocab?level=${level}&q=${encodeURIComponent(search)}&limit=30`);
+      const res = await axiosClient.get(`/vocab?level=${level}&q=${encodeURIComponent(search)}&page=${page}&limit=30`);
       setVocabList(res.data || []);
+      if (res.meta) {
+        setMeta(res.meta);
+      }
       setFlippedIndex(null);
     } catch (err) {
       console.error('Lỗi tải từ vựng:', err);
@@ -209,7 +218,7 @@ export default function Dashboard() {
                 <th className="py-3 px-4">Từ vựng</th>
                 <th className="py-3 px-4">Cách đọc (Hiragana)</th>
                 <th className="py-3 px-4">Romaji</th>
-                <th className="py-3 px-4">Nghĩa tiếng Việt</th>
+                <th className="py-3 px-4">Nghĩa</th>
                 <th className="py-3 px-4 text-center">Phát âm</th>
               </tr>
             </thead>
@@ -240,6 +249,35 @@ export default function Dashboard() {
               ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {/* Pagination Controls */}
+      {meta.total > 0 && (
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-200 dark:border-slate-800 text-sm text-slate-600 dark:text-slate-400">
+          <div>
+            Đang xem trang <strong className="text-slate-900 dark:text-white">{meta.page}</strong> / {meta.totalPages} (Tổng cộng <strong className="text-indigo-600 dark:text-indigo-400">{meta.total}</strong> từ vựng {level})
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page <= 1}
+              className="px-4 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+            >
+              ← Trang trước
+            </button>
+            <span className="text-xs px-3 font-semibold text-slate-500">
+              {page} / {meta.totalPages}
+            </span>
+            <button
+              onClick={() => setPage((p) => Math.min(meta.totalPages, p + 1))}
+              disabled={page >= meta.totalPages}
+              className="px-4 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+            >
+              Trang sau →
+            </button>
+          </div>
         </div>
       )}
     </div>

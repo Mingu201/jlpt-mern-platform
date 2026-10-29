@@ -21,15 +21,12 @@ router.get('/health', (req, res) => {
 // Seed endpoint
 router.get('/seed', async (req, res) => {
   try {
-    await Vocabulary.deleteMany({});
-    await Kanji.deleteMany({});
-    await Vocabulary.insertMany(initialVocabData);
-    await Kanji.insertMany(initialKanjiData);
+    const { seedFullOpenJLPT } = await import('../scripts/seedOpenJLPT.js');
+    const result = await seedFullOpenJLPT();
     res.json({
       success: true,
-      message: `Đã seed thành công ${initialVocabData.length} từ vựng và ${initialKanjiData.length} Kanji!`,
-      vocabCount: initialVocabData.length,
-      kanjiCount: initialKanjiData.length
+      message: `Đã nạp thành công toàn bộ ${result.totalVocabInserted} từ vựng và ${result.totalKanjiInserted} Kanji từ OpenJLPT!`,
+      data: result
     });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });

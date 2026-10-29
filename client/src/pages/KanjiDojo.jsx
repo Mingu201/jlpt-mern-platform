@@ -17,7 +17,7 @@ export default function KanjiDojo() {
   const fetchKanjiList = async (lvl) => {
     setLoading(true);
     try {
-      const res = await axiosClient.get(`/kanji?level=${lvl}&limit=50`);
+      const res = await axiosClient.get(`/kanji?level=${lvl}&limit=500`);
       setKanjiList(res.data || []);
       if (res.data?.length > 0) {
         setSelectedKanji(res.data[0]);

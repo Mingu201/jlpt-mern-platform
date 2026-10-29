@@ -9,7 +9,7 @@ import SpeakingStudio from './features/speaking/SpeakingStudio';
 export default function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-slate-50 flex flex-col text-slate-800">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col text-slate-800 dark:text-slate-100 transition-colors duration-200">
         <Navbar />
         <main className="flex-1 pb-16">
           <Routes>

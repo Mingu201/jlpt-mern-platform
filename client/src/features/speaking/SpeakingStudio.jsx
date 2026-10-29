@@ -134,17 +134,17 @@ export default function SpeakingStudio() {
     <div className="max-w-3xl mx-auto p-6 space-y-6">
       {/* Title */}
       <div className="text-center space-y-2">
-        <h1 className="text-2xl font-bold text-slate-900">
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
           Speaking & Shadowing Studio 🎙️
         </h1>
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-slate-500 dark:text-slate-400">
           Luyện phát âm chuẩn người bản xứ với Web Speech Recognition và thuật toán Levenshtein Distance
         </p>
       </div>
 
       {!speechSupported && (
-        <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-sm flex items-center gap-3">
-          <AlertTriangle size={20} className="flex-shrink-0 text-amber-600" />
+        <div className="p-4 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-xl text-amber-800 dark:text-amber-300 text-sm flex items-center gap-3">
+          <AlertTriangle size={20} className="flex-shrink-0 text-amber-600 dark:text-amber-400" />
           <span>
             Trình duyệt của bạn chưa bật hoặc không hỗ trợ Web Speech API. Vui lòng sử dụng Google Chrome hoặc Microsoft Edge để trải nghiệm đầy đủ tính năng nhận diện giọng nói tiếng Nhật.
           </span>
@@ -152,10 +152,10 @@ export default function SpeakingStudio() {
       )}
 
       {/* Main Practice Card */}
-      <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+      <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-6 transition-colors">
         {/* Level & Controls */}
         <div className="flex items-center justify-between">
-          <span className="px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-600 border border-indigo-200">
+          <span className="px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800">
             Cấp độ: {currentSentence.level}
           </span>
           <div className="flex items-center gap-2">
@@ -170,7 +170,7 @@ export default function SpeakingStudio() {
                 className={`w-8 h-8 rounded-lg text-xs font-semibold transition-all ${
                   currentIndex === idx
                     ? 'bg-indigo-600 text-white shadow-sm'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
                 }`}
               >
                 {idx + 1}
@@ -180,19 +180,19 @@ export default function SpeakingStudio() {
         </div>
 
         {/* Japanese Sentence Display */}
-        <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200 text-center space-y-3">
-          <div className="text-3xl font-bold text-slate-900 tracking-wide">
+        <div className="p-6 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 text-center space-y-3">
+          <div className="text-3xl font-bold text-slate-900 dark:text-white tracking-wide font-japanese">
             {currentSentence.japanese}
           </div>
-          <div className="text-sm text-indigo-600 font-medium">
+          <div className="text-sm text-indigo-600 dark:text-indigo-400 font-medium">
             {currentSentence.romaji}
           </div>
-          <div className="text-sm text-slate-500">
+          <div className="text-sm text-slate-500 dark:text-slate-400">
             Nghĩa: {currentSentence.meaning}
           </div>
           <button
             onClick={handleSpeakSample}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-100 text-indigo-700 hover:bg-indigo-200 rounded-xl text-xs font-semibold transition-colors mt-2"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-100 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-200 dark:hover:bg-indigo-900/60 rounded-xl text-xs font-semibold transition-colors mt-2"
           >
             <Volume2 size={16} />
             Nghe mẫu giọng bản xứ
@@ -206,47 +206,47 @@ export default function SpeakingStudio() {
             disabled={!speechSupported}
             className={`w-20 h-20 rounded-full flex items-center justify-center text-white shadow-lg transition-all transform active:scale-95 ${
               isRecording
-                ? 'bg-rose-500 animate-pulse ring-8 ring-rose-100'
-                : 'bg-indigo-600 hover:bg-indigo-700 ring-4 ring-indigo-50'
+                ? 'bg-rose-500 animate-pulse ring-8 ring-rose-100 dark:ring-rose-950'
+                : 'bg-indigo-600 hover:bg-indigo-700 ring-4 ring-indigo-50 dark:ring-indigo-950/50'
             }`}
           >
             {isRecording ? <MicOff size={32} /> : <Mic size={32} />}
           </button>
-          <span className="text-xs font-medium text-slate-500">
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
             {isRecording ? 'Đang lắng nghe bạn nói... (Bấm để kết thúc)' : 'Bấm nút mic và đọc to câu trên'}
           </span>
         </div>
 
         {/* Results */}
         {transcript && (
-          <div className="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+          <div className="p-5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700 space-y-3">
             <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
               Kết quả nhận diện được:
             </div>
-            <div className="text-lg font-medium text-slate-800">
+            <div className="text-lg font-medium text-slate-800 dark:text-slate-100 font-japanese">
               "{transcript}"
             </div>
 
             {score !== null && (
-              <div className="pt-2 border-t border-slate-200 flex items-center justify-between">
+              <div className="pt-2 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Award className={`w-6 h-6 ${score >= 80 ? 'text-amber-500' : 'text-slate-400'}`} />
-                  <span className="text-sm font-semibold text-slate-700">
+                  <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
                     Độ chuẩn xác phát âm:
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className={`text-2xl font-black ${
-                    score >= 80 ? 'text-emerald-600' : score >= 50 ? 'text-amber-500' : 'text-rose-500'
+                    score >= 80 ? 'text-emerald-600 dark:text-emerald-400' : score >= 50 ? 'text-amber-500' : 'text-rose-500'
                   }`}>
                     {score}%
                   </div>
                   {score >= 80 ? (
-                    <span className="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-semibold">
+                    <span className="text-xs bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 px-2 py-0.5 rounded font-semibold border border-emerald-200 dark:border-emerald-800">
                       Phát âm rất chuẩn!
                     </span>
                   ) : (
-                    <span className="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-semibold">
+                    <span className="text-xs bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 px-2 py-0.5 rounded font-semibold border border-amber-200 dark:border-amber-800">
                       Hãy nghe lại và thử lại nhé!
                     </span>
                   )}

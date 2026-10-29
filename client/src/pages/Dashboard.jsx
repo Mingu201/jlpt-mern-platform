@@ -57,7 +57,7 @@ export default function Dashboard() {
       </div>
 
       {/* Filter and Search Controls */}
-      <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 transition-colors">
         {/* Level Switcher */}
         <div className="flex items-center gap-2 w-full sm:w-auto">
           {['N5', 'N4', 'N3'].map((lvl) => (
@@ -67,7 +67,7 @@ export default function Dashboard() {
               className={`flex-1 sm:flex-none px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
                 level === lvl
                   ? 'bg-indigo-600 text-white shadow-md'
-                  : 'bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200'
+                  : 'bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700'
               }`}
             >
               {lvl}
@@ -83,16 +83,18 @@ export default function Dashboard() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Tìm theo chữ Hán, Romaji hoặc nghĩa tiếng Việt..."
-            className="w-full pl-10 pr-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 font-sans"
+            className="w-full pl-10 pr-4 py-2.5 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 font-sans text-slate-900 dark:text-white placeholder-slate-400"
           />
         </div>
 
         {/* View Switcher */}
-        <div className="flex items-center bg-slate-100 p-1 rounded-xl">
+        <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
           <button
             onClick={() => setActiveTab('flashcards')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-              activeTab === 'flashcards' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600'
+              activeTab === 'flashcards'
+                ? 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm'
+                : 'text-slate-600 dark:text-slate-400'
             }`}
           >
             <Layers size={14} /> Flashcard
@@ -100,7 +102,9 @@ export default function Dashboard() {
           <button
             onClick={() => setActiveTab('list')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-              activeTab === 'list' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600'
+              activeTab === 'list'
+                ? 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm'
+                : 'text-slate-600 dark:text-slate-400'
             }`}
           >
             <BookOpen size={14} /> Danh sách
@@ -134,9 +138,9 @@ export default function Dashboard() {
                   }`}
                 >
                   {/* Front Side */}
-                  <div className="absolute inset-0 bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm hover:border-indigo-300 hover:shadow-md transition-all [backface-visibility:hidden]">
+                  <div className="absolute inset-0 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between shadow-sm hover:border-indigo-300 dark:hover:border-indigo-500/50 hover:shadow-md transition-all [backface-visibility:hidden]">
                     <div className="flex items-start justify-between">
-                      <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-600">
+                      <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800">
                         {item.jlptLevel}
                       </span>
                       <button
@@ -144,7 +148,7 @@ export default function Dashboard() {
                           e.stopPropagation();
                           playAudio(item.word);
                         }}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-colors"
+                        className="p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-slate-800 transition-colors"
                         title="Nghe phát âm"
                       >
                         <Volume2 size={18} />
@@ -152,10 +156,10 @@ export default function Dashboard() {
                     </div>
 
                     <div className="text-center space-y-1">
-                      <div className="text-3xl font-bold text-slate-900 font-japanese">
+                      <div className="text-3xl font-bold text-slate-900 dark:text-white font-japanese">
                         {item.word}
                       </div>
-                      <div className="text-sm text-indigo-600 font-medium font-japanese">
+                      <div className="text-sm text-indigo-600 dark:text-indigo-400 font-medium font-japanese">
                         {item.reading}
                       </div>
                       <div className="text-xs text-slate-400">
@@ -169,7 +173,7 @@ export default function Dashboard() {
                   </div>
 
                   {/* Back Side */}
-                  <div className="absolute inset-0 bg-indigo-600 text-white rounded-2xl p-6 flex flex-col justify-between shadow-md [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                  <div className="absolute inset-0 bg-indigo-600 dark:bg-indigo-700 text-white rounded-2xl p-6 flex flex-col justify-between shadow-md [transform:rotateY(180deg)] [backface-visibility:hidden]">
                     <div className="text-[11px] font-semibold text-indigo-200 uppercase tracking-wider">
                       Ý nghĩa & Ví dụ
                     </div>
@@ -198,9 +202,9 @@ export default function Dashboard() {
         </div>
       ) : (
         /* List Table View */
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
           <table className="w-full text-left text-sm">
-            <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 font-semibold text-xs">
+            <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-semibold text-xs">
               <tr>
                 <th className="py-3 px-4">Từ vựng</th>
                 <th className="py-3 px-4">Cách đọc (Hiragana)</th>
@@ -209,25 +213,25 @@ export default function Dashboard() {
                 <th className="py-3 px-4 text-center">Phát âm</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {vocabList.map((item) => (
-                <tr key={item._id} className="hover:bg-slate-50/80 transition-colors">
-                  <td className="py-3.5 px-4 font-bold text-slate-900 font-japanese text-base">
+                <tr key={item._id} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-colors">
+                  <td className="py-3.5 px-4 font-bold text-slate-900 dark:text-white font-japanese text-base">
                     {item.word}
                   </td>
-                  <td className="py-3.5 px-4 text-indigo-600 font-japanese">
+                  <td className="py-3.5 px-4 text-indigo-600 dark:text-indigo-400 font-japanese">
                     {item.reading}
                   </td>
-                  <td className="py-3.5 px-4 text-slate-500">
+                  <td className="py-3.5 px-4 text-slate-500 dark:text-slate-400">
                     {item.romaji}
                   </td>
-                  <td className="py-3.5 px-4 text-slate-700 font-medium">
+                  <td className="py-3.5 px-4 text-slate-700 dark:text-slate-200 font-medium">
                     {item.meanings?.[0]?.definitions?.join(', ')}
                   </td>
                   <td className="py-3.5 px-4 text-center">
                     <button
                       onClick={() => playAudio(item.word)}
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-indigo-50"
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-slate-800"
                     >
                       <Volume2 size={16} />
                     </button>

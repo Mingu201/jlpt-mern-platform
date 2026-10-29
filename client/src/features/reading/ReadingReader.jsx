@@ -104,15 +104,15 @@ export default function ReadingReader() {
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6">
       {/* Header Bar */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-4">
+      <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-wrap items-center justify-between gap-4 transition-colors">
         <div>
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
               {samplePassage.level}
             </span>
-            <h1 className="text-xl font-bold text-slate-900">{samplePassage.title}</h1>
+            <h1 className="text-xl font-bold text-slate-900 dark:text-white">{samplePassage.title}</h1>
           </div>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Bấm vào bất kỳ từ vựng nào để tra nghĩa tức thời qua Jisho API Proxy
           </p>
         </div>
@@ -123,8 +123,8 @@ export default function ReadingReader() {
             onClick={() => setShowFurigana(!showFurigana)}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
               showFurigana
-                ? 'bg-indigo-50 text-indigo-700 border border-indigo-200'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                ? 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800'
+                : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
             }`}
           >
             {showFurigana ? <Eye size={14} /> : <EyeOff size={14} />}
@@ -135,7 +135,7 @@ export default function ReadingReader() {
           <select
             value={speed}
             onChange={(e) => setSpeed(parseFloat(e.target.value))}
-            className="text-xs border border-slate-300 rounded-lg px-2 py-1.5 bg-white font-medium text-slate-700"
+            className="text-xs border border-slate-300 dark:border-slate-700 rounded-lg px-2 py-1.5 bg-white dark:bg-slate-800 font-medium text-slate-700 dark:text-slate-200"
           >
             <option value={0.75}>Tốc độ: 0.75x (N5)</option>
             <option value={1.0}>Tốc độ: 1.0x (Chuẩn)</option>
@@ -157,19 +157,19 @@ export default function ReadingReader() {
       </div>
 
       {/* Reading Passage Area */}
-      <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
-        <div className={`space-y-6 leading-loose text-lg text-slate-900 ${showFurigana ? '' : 'hide-furigana'}`}>
+      <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-6 transition-colors">
+        <div className={`space-y-6 leading-loose text-lg text-slate-900 dark:text-slate-100 ${showFurigana ? '' : 'hide-furigana'}`}>
           {samplePassage.content.map((sentence, sIdx) => {
             const sentenceText = sentence.tokens.map((t) => t.text).join('');
             return (
-              <div key={sIdx} className="p-4 rounded-xl hover:bg-indigo-50/40 transition-colors border border-transparent hover:border-indigo-100">
+              <div key={sIdx} className="p-4 rounded-xl hover:bg-indigo-50/40 dark:hover:bg-indigo-950/20 transition-colors border border-transparent hover:border-indigo-100 dark:hover:border-indigo-900">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex flex-wrap items-end gap-x-1 gap-y-2 text-xl font-japanese">
                     {sentence.tokens.map((token, tIdx) => (
                       <span
                         key={tIdx}
                         onClick={() => handleWordClick(token)}
-                        className={`inline-block cursor-pointer px-1 py-0.5 rounded transition-all hover:bg-indigo-100 hover:text-indigo-700 ${
+                        className={`inline-block cursor-pointer px-1 py-0.5 rounded transition-all hover:bg-indigo-100 dark:hover:bg-indigo-900/60 hover:text-indigo-700 dark:hover:text-indigo-300 ${
                           token.furigana ? 'font-medium' : ''
                         }`}
                       >
@@ -187,14 +187,14 @@ export default function ReadingReader() {
 
                   <button
                     onClick={() => handleSpeak(sentenceText)}
-                    className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors flex-shrink-0"
+                    className="p-1.5 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-slate-800 rounded-lg transition-colors flex-shrink-0"
                     title="Nghe câu này"
                   >
                     <Volume2 size={18} />
                   </button>
                 </div>
 
-                <div className="mt-2 text-sm text-slate-500 font-sans pl-1">
+                <div className="mt-2 text-sm text-slate-500 dark:text-slate-400 font-sans pl-1">
                   {sentence.translation}
                 </div>
               </div>
@@ -205,23 +205,23 @@ export default function ReadingReader() {
 
       {/* Popup Tra Từ Nhanh (Modal / Card) */}
       {selectedWord && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4 animate-in fade-in zoom-in-95 duration-150">
-            <div className="flex items-start justify-between border-b pb-3">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4 animate-in fade-in zoom-in-95 duration-150 transition-colors">
+            <div className="flex items-start justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
               <div>
-                <span className="text-xs font-semibold px-2 py-0.5 rounded bg-indigo-50 text-indigo-600">
+                <span className="text-xs font-semibold px-2 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800">
                   Jisho Dictionary Lookup
                 </span>
-                <div className="text-2xl font-bold text-slate-900 mt-1 flex items-center gap-3">
+                <div className="text-2xl font-bold text-slate-900 dark:text-white mt-1 flex items-center gap-3">
                   {selectedWord.text}
                   {selectedWord.furigana && (
-                    <span className="text-sm font-normal text-slate-500">
+                    <span className="text-sm font-normal text-slate-500 dark:text-slate-400">
                       ({selectedWord.furigana})
                     </span>
                   )}
                   <button
                     onClick={() => handleSpeak(selectedWord.text)}
-                    className="p-1.5 text-indigo-600 hover:bg-indigo-50 rounded-lg"
+                    className="p-1.5 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-slate-800 rounded-lg"
                   >
                     <Volume2 size={18} />
                   </button>
@@ -229,14 +229,14 @@ export default function ReadingReader() {
               </div>
               <button
                 onClick={() => setSelectedWord(null)}
-                className="text-slate-400 hover:text-slate-600 text-lg font-bold p-1"
+                className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-lg font-bold p-1"
               >
                 ✕
               </button>
             </div>
 
             {loadingPopup ? (
-              <div className="py-8 text-center text-sm text-slate-500">
+              <div className="py-8 text-center text-sm text-slate-500 dark:text-slate-400">
                 Đang tra cứu từ điển Jisho qua Backend Proxy...
               </div>
             ) : popupData ? (
@@ -244,7 +244,7 @@ export default function ReadingReader() {
                 {popupData.jlpt?.length > 0 && (
                   <div className="flex gap-1">
                     {popupData.jlpt.map((lvl, idx) => (
-                      <span key={idx} className="text-[11px] font-semibold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">
+                      <span key={idx} className="text-[11px] font-semibold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-400 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-800">
                         {lvl.toUpperCase()}
                       </span>
                     ))}
@@ -255,10 +255,10 @@ export default function ReadingReader() {
                   <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
                     Định nghĩa:
                   </div>
-                  <ul className="list-disc list-inside space-y-1 text-sm text-slate-700">
+                  <ul className="list-disc list-inside space-y-1 text-sm text-slate-700 dark:text-slate-300">
                     {popupData.senses?.slice(0, 3).map((sense, idx) => (
                       <li key={idx}>
-                        <span className="font-medium text-slate-900">
+                        <span className="font-medium text-slate-900 dark:text-white">
                           {sense.english_definitions.join(', ')}
                         </span>
                         {sense.parts_of_speech?.length > 0 && (
@@ -272,7 +272,7 @@ export default function ReadingReader() {
                 </div>
               </div>
             ) : (
-              <div className="py-6 text-center text-sm text-slate-500">
+              <div className="py-6 text-center text-sm text-slate-500 dark:text-slate-400">
                 Không tìm thấy dữ liệu từ điển cho từ này.
               </div>
             )}

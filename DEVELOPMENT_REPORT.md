@@ -111,6 +111,13 @@ Mô phỏng trải nghiệm học tập 1-1 với giáo viên bản xứ qua 5 g
   docker compose up --build -d
   ```
 
+### 2.9. Phân Hệ Ngữ Pháp & Luyện Chia Thể Động Từ (Grammar Mastery Engine)
+- **Model Ngữ pháp chuyên sâu (`Grammar.js`)**: Lưu trữ mẫu cấu trúc câu, Romaji, cấp độ JLPT (N5, N4, N3), công thức kết hợp (Structure/Formation), giải thích ngữ cảnh, lưu ý sắc thái, ví dụ song ngữ gắn Furigana `<ruby>` và bộ câu đố trắc nghiệm phản xạ.
+- **Trang Võ Đài Ngữ Pháp (`/grammar` - GrammarDojo)** với 3 phân khu trải nghiệm:
+  1. **Cẩm Nang Ngữ Pháp (Grammar Library)**: Lọc cấp độ N5/N4/N3, tìm kiếm tức thì, phát âm giọng chuẩn bản xứ Web Speech API `ja-JP`.
+  2. **Luyện Chia Thể Động Từ (Verb Conjugation Drill)**: Rèn luyện 8 thể cốt lõi (*Thể Te, Thể Ta, Thể Phủ định Nai, Thể Khả năng, Thể Bị động, Thể Sai khiến, Thể Ý chí, Thể Điều kiện Ba*), tích hợp bộ gõ Romaji $\rightarrow$ Hiragana tự động bằng WanaKana, đếm streak combo và giải thích quy tắc biến âm chi tiết.
+  3. **Đố Vui Phản Xạ Ngữ Pháp (Grammar Quiz Challenge)**: Đề thi trắc nghiệm ngẫu nhiên kiểm tra ngữ cảnh, khóa đáp án, chấm điểm tức thì và phân tích lý do chọn đúng/sai.
+
 ---
 
 ## 3. Nhật Ký Commits Git Chính

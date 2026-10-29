@@ -1,6 +1,7 @@
 import express from 'express';
 import vocabRoutes from './vocabRoutes.js';
 import kanjiRoutes from './kanjiRoutes.js';
+import grammarRoutes from './grammarRoutes.js';
 import dictionaryRoutes from './dictionaryRoutes.js';
 import authRoutes from './authRoutes.js';
 import srsRoutes from './srsRoutes.js';
@@ -37,6 +38,7 @@ router.use('/srs', srsRoutes);
 router.use('/admin', adminRoutes);
 router.use('/vocab', vocabRoutes);
 router.use('/kanji', kanjiRoutes);
+router.use('/grammar', grammarRoutes);
 router.use('/dictionary', dictionaryRoutes);
 
 export default router;

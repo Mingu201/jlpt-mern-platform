@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { BookOpen, Edit3, Mic, Grid, Sparkles, Sun, Moon, GraduationCap, Flame, User, LogOut, ShieldCheck } from 'lucide-react';
+import { BookOpen, Edit3, Mic, Grid, Sparkles, Sun, Moon, GraduationCap, Flame, User, LogOut, ShieldCheck, Layers } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
 
@@ -11,6 +11,7 @@ export default function Navbar({ onOpenAuthModal }) {
   const navItems = [
     { to: '/classroom', label: 'Lớp Học 1-1', icon: GraduationCap, highlight: true },
     { to: '/', label: 'Từ Vựng', icon: BookOpen },
+    { to: '/grammar', label: 'Ngữ Pháp', icon: Layers },
     { to: '/kana', label: 'Bảng Chữ Cái', icon: Grid },
     { to: '/kanji', label: 'Kanji Dojo', icon: Edit3 },
     { to: '/reading', label: 'Luyện Đọc', icon: Sparkles },

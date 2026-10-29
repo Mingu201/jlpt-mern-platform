@@ -7,7 +7,7 @@ import {
   createGrammar,
   seedGrammarData
 } from '../controllers/grammarController.js';
-import { protect, authorize } from '../middlewares/authMiddleware.js';
+import { protect, requireAdmin, authorize } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
@@ -17,7 +17,7 @@ router.post('/seed', seedGrammarData);
 
 router.route('/')
   .get(getGrammarList)
-  .post(protect, authorize('admin'), createGrammar);
+  .post(protect, requireAdmin, createGrammar);
 
 router.route('/:id')
   .get(getGrammarById);

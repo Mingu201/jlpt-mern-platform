@@ -203,7 +203,7 @@ export default function GrammarDojo() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-[1720px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header Banner */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-700 p-6 sm:p-8 rounded-3xl text-white shadow-xl relative overflow-hidden">
         <div className="relative z-10">

@@ -49,10 +49,10 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6 space-y-8">
+    <div className="max-w-[1720px] w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
       {/* Hero Banner */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-800 rounded-3xl p-8 text-white shadow-xl">
-        <div className="relative z-10 max-w-2xl space-y-3">
+      <div className="relative overflow-hidden bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-800 rounded-3xl p-6 sm:p-8 text-white shadow-xl">
+        <div className="relative z-10 max-w-3xl space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-semibold tracking-wide uppercase text-indigo-200 border border-white/10">
             Nền tảng Full-Stack MERN
           </div>
@@ -60,7 +60,7 @@ export default function Dashboard() {
             Làm chủ JLPT N5 đến N3 toàn diện 4 kỹ năng
           </h1>
           <p className="text-sm text-indigo-100">
-            Tích hợp cơ sở dữ liệu mở OpenJLPT, nhận diện giọng nói Web Speech API và tương tác viết Kanji chuẩn nét.
+            Tích hợp cơ sở dữ liệu mở OpenJLPT (2.963 từ vựng, 640 Kanji), nhận diện giọng nói Web Speech API và tương tác viết Kanji chuẩn nét.
           </p>
         </div>
       </div>
@@ -132,7 +132,7 @@ export default function Dashboard() {
         </div>
       ) : activeTab === 'flashcards' ? (
         /* Flashcards Grid (3D Flip Effect) */
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
           {vocabList.map((item, index) => {
             const isFlipped = flippedIndex === index;
             return (

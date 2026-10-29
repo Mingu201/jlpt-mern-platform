@@ -2,10 +2,8 @@ import express from 'express';
 import vocabRoutes from './vocabRoutes.js';
 import kanjiRoutes from './kanjiRoutes.js';
 import dictionaryRoutes from './dictionaryRoutes.js';
-import { autoSeedIfEmpty } from '../scripts/autoSeed.js';
-import Vocabulary from '../models/Vocabulary.js';
-import Kanji from '../models/Kanji.js';
-import { initialVocabData, initialKanjiData } from '../scripts/seedData.js';
+import authRoutes from './authRoutes.js';
+import srsRoutes from './srsRoutes.js';
 
 const router = express.Router();
 
@@ -33,6 +31,8 @@ router.get('/seed', async (req, res) => {
   }
 });
 
+router.use('/auth', authRoutes);
+router.use('/srs', srsRoutes);
 router.use('/vocab', vocabRoutes);
 router.use('/kanji', kanjiRoutes);
 router.use('/dictionary', dictionaryRoutes);

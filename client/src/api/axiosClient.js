@@ -8,6 +8,18 @@ const axiosClient = axios.create({
   timeout: 10000
 });
 
+// Request interceptor: Tự động đính kèm JWT Bearer Token nếu có
+axiosClient.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('jlpt_token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 // Response interceptor để unwrap data hoặc bắt lỗi tập trung
 axiosClient.interceptors.response.use(
   (response) => response.data,
